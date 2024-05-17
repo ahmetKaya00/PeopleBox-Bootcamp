@@ -1,40 +1,63 @@
 <?php
 
-    $kategori = array("Macera","Dram","Komedi","Korku");
-
-    array_push($kategori,"Fantastik");
-    sort($kategori);
+    $kategori = array("Macera","Dram","Komedi","Korku","Bilim Kurgu");
 
     $filmler = array(
         "1" => array(
             "baslik" => "Paper Lives",
             "aciklama" => "Kağıt toplayarak geçinen ve sağlığı giderek kötüleşen Mehmet terk edilmiş bir çocuk bulur. Birden hayatına giren küçük Ali, onu kendi çocukluğuyla yüzleştirecektir. (18 yaş ve üzeri için uygundur)",
             "resim" => "1.jpeg",
-            "yorumSayisi" => "Yorum: 55",
+            "yorumSayisi" => "0",
             "begeniSayisi" => "Beğeni: 85",
-            "vizyon" => "Viyonda: Evet"
+            "vizyon" => true,
+            "url" => "Paper-Lives"
         ),
         "2" => array(
             "baslik" => "Walking Dead",
             "aciklama" => "Zombi kıyametinin ardından hayatta kalanlar, birlikte verdikleri ölüm kalım mücadelesinde insanlığa karşı duydukları umuda tutunur.",
             "resim" => "2.jpeg",
-            "yorumSayisi" => "Yorum: 55",
-            "begeniSayisi" => "Beğeni: 85",
-            "vizyon" => "Viyonda: Evet"
+            "yorumSayisi" => "55",
+            "begeniSayisi" => "0",
+            "vizyon" => false,
+            "url" => "Walking-Dead"
+        ),
+        "3" => array(
+            "baslik" => "Walking Dead",
+            "aciklama" => "Zombi kıyametinin ardından hayatta kalanlar, birlikte verdikleri ölüm kalım mücadelesinde insanlığa karşı duydukları umuda tutunur.",
+            "resim" => "2.jpeg",
+            "yorumSayisi" => "55",
+            "begeniSayisi" => "0",
+            "vizyon" => false,
+            "url" => "Walking-Dead"
+        ),
+        "4" => array(
+            "baslik" => "Walking Dead",
+            "aciklama" => "Zombi kıyametinin ardından hayatta kalanlar, birlikte verdikleri ölüm kalım mücadelesinde insanlığa karşı duydukları umuda tutunur.",
+            "resim" => "2.jpeg",
+            "yorumSayisi" => "55",
+            "begeniSayisi" => "0",
+            "vizyon" => false,
+            "url" => "Walking-Dead"
         )
         );
 
-    $yeni_film = array(
-        "baslik" => "Lucifer",
-            "aciklama" => "Zombi kıyametinin ardından hayatta kalanlar, birlikte verdikleri ölüm kalım mücadelesinde insanlığa karşı duydukları umuda tutunur.",
-            "resim" => "3.jpeg",
-            "yorumSayisi" => "Yorum: 55",
-            "begeniSayisi" => "Beğeni: 85",
-            "vizyon" => "Viyonda: Evet"
-    );
-    
-    $filmler["0"] = $yeni_film;
+        function filmEkle(&$filmler,string $baslik,string $aciklama,string $resim,int $yorumSayisi = 0,int $begeniSayisi = 0,bool $vizyon = false, $url = "demo"){
+            $new_item[count($filmler) + 1] = array(
+                "baslik" => $baslik,
+                "aciklama" => $aciklama,
+                "resim" => $resim,
+                "yorumSayisi" => $yorumSayisi,
+                "begeniSayisi" => $begeniSayisi,
+                "vizyon" => $vizyon,
+                "url" => $url
+            );
 
+            $filmler = array_merge($filmler, $new_item);
+        }
+
+        filmEkle($filmler, "Yeni Film 1","ilk açıklama","1.jpeg");
+        filmEkle($filmler, "Yeni Film 2","ikinci açıklama","2.jpeg");
+        const limit = 85;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,81 +72,57 @@
         <div class="row">
             <div class="col-3">
                 <ul class="list-group">
-                    <li class="list-group-item"><?php echo $kategori[0]?></li>
-                    <li class="list-group-item"><?php echo $kategori[1]?></li>
-                    <li class="list-group-item"><?php echo $kategori[2]?></li>
-                    <li class="list-group-item"><?php echo $kategori[3]?></li>
-                    <li class="list-group-item"><?php echo $kategori[4]?></li>
+            <?php
+                foreach($kategori as $kategoriler){
+                    echo '<li class= "list-group-item">'.$kategoriler.'</li>';
+                }  
+                ?>
                 </ul>
             </div>
             <div class="col-9">
-                <div class="card mb-3">
+               <?php     
+                foreach($filmler as $id => $film)
+                                    {
+                  echo '<div class="card mb-3">
                     <div class="row">
+                        <div class="col-3">         
+                            <img class="img-fluid" src="img/'.$film["resim"].'">
+                        </div>
+                        <div class="col-9">
+                            <div class="card-body">
+                            <h5 class="card-title"><a href='.$film["url"].'">'.$film["baslik"].'</a></h5>
+                                <p class="card-text">';
 
-                        <div class="col-3">
-                            <?php echo
-                            "<img class=\"img-fluid\" src=\"img/{$filmler["1"]["resim"]}\">" ?>
-                        </div>
-                        <div class="col-9">
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo $filmler["1"]["baslik"]?></h5>
-                                <p class="card-text">
-                                <?php echo $filmler["1"]["aciklama"]?>
-                                </p>
-                                <div>
-                                    <span class="badge bg-success">Yapım Tarihi: 03.12.2021</span>
-                                    <span class="badge bg-success"><?php echo $filmler["1"]["yorumSayisi"]?></span>
-                                    <span class="badge bg-success"><?php echo $filmler["1"]["begeniSayisi"]?></span>
-                                    <span class="badge bg-success"><?php echo $filmler["1"]["vizyon"]?></span>
+                                    if(strlen($film["aciklama"]) > limit){
+                                        echo substr($film["aciklama"],0,limit)."...";
+                                    }else{
+                                        echo $film["aciklama"];
+                                    }
+                              echo  '</p><div>
+                                    <span class="badge bg-success">Yapım Tarihi: 03.12.2021</span>';
+
+                                        if($film["yorumSayisi"] > 0){
+                                            echo '<span class="badge bg-success"> '.$film["yorumSayisi"].' yorum </span>';
+                                        }
+                                   echo' <span class="badge bg-success">'.$film["begeniSayisi"].' beğeni</span>';
+
+                                   echo '<span class="badge bg-success">';
+
+                                        if($film["vizyon"]){
+                                            echo "vizyonda";
+                                        }else{
+                                            echo "vizyonda değil";
+                                        }
+
+                                   echo '</span>
+
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card mb-3">
-                    <div class="row">
-                        <div class="col-3">
-                        <?php echo
-                            "<img class=\"img-fluid\" src=\"img/{$filmler["2"]["resim"]}\">" ?>
-                        </div>
-                        <div class="col-9">
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo $filmler["2"]["baslik"]?></h5>
-                                <p class="card-text">
-                                <?php echo $filmler["2"]["aciklama"]?>
-                                </p>
-                                <div>
-                                    <span class="badge bg-success">Yapım Tarihi: 03.12.2021</span>
-                                    <span class="badge bg-success"><?php echo $filmler["2"]["yorumSayisi"]?></span>
-                                    <span class="badge bg-success"><?php echo $filmler["2"]["begeniSayisi"]?></span>
-                                    <span class="badge bg-success"><?php echo $filmler["2"]["vizyon"]?></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card mb-3">
-                    <div class="row">
-                        <div class="col-3">
-                        <?php echo
-                            "<img class=\"img-fluid\" src=\"img/{$filmler["0"]["resim"]}\">" ?>
-                        </div>
-                        <div class="col-9">
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo $filmler["0"]["baslik"]?></h5>
-                                <p class="card-text">
-                                <?php echo $filmler["0"]["aciklama"]?>
-                                </p>
-                                <div>
-                                    <span class="badge bg-success">Yapım Tarihi: 03.12.2021</span>
-                                    <span class="badge bg-success"><?php echo $filmler["0"]["yorumSayisi"]?></span>
-                                    <span class="badge bg-success"><?php echo $filmler["0"]["begeniSayisi"]?></span>
-                                    <span class="badge bg-success"><?php echo $filmler["0"]["vizyon"]?></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </div>';
+                    }
+                    ?>              
             </div>
         </div>
     </div>

@@ -1,0 +1,26 @@
+    /*
+
+        Css Kütüphane Linki: <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
+        
+        Kategoriler:
+            Macera
+            Dram
+            Komedi
+            Korku
+
+        Film 1: 
+            başlık: Paper Lives
+            özet: Kağıt toplayarak geçinen ve sağlığı giderek kötüleşen Mehmet terk edilmiş bir çocuk bulur. Birden hayatına giren küçük Ali, onu kendi çocukluğuyla yüzleştirecektir. (18 yaş ve üzeri için uygundur)
+            yapim tarihi: 03.12.2021
+            yorum sayısı: 23
+            beğeni sayısı: 106
+            vizyonda olma durumu: evet
+
+        Film 2: 
+            başlık: Walking Dead
+            özet: Zombi kıyametinin ardından hayatta kalanlar, birlikte verdikleri ölüm kalım mücadelesinde insanlığa karşı duydukları umuda tutunur.
+            yapim tarihi: 31.10.2010
+            yorum sayısı: 236
+            beğeni sayısı: 1023
+            vizyonda olma durumu: hayır
+    */

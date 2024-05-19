@@ -1,3 +1,15 @@
+<?php
+
+    if(!empty($_GET['q'])){
+        $keyword = $_GET['q'];
+
+        $filmler = array_filter($filmler, function($film) use ($keyword){
+                return stristr($film['baslik'], $keyword) or stristr($film['aciklama'],$keyword);
+        });
+    }
+
+
+?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container">
         <a href="/" class="navbar-brand">BlogApp</a>
@@ -15,8 +27,8 @@
                 </li>
             </ul>
 
-            <form action="" class="d-flex">
-                <input type="text" class="form-control me-2">
+            <form action="index.php" class="d-flex" method="GET">
+                <input type="text" name="q" class="form-control me-2" placeholder="Search">
                 <button class="btn btn-outline-light">Search</button>
             </form>
         </div>

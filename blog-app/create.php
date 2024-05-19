@@ -13,7 +13,8 @@
             <?php include "views/_menu.php";?>
             </div>
             <div class="col-9">
-            <?php include "views/_blog-list.php";?>
+            
+            
             </div>       
         </div>    
     </div>

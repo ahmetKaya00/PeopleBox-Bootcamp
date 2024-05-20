@@ -1,6 +1,15 @@
 <?php
         require "libs/vars.php";
         require "libs/function.php";
+
+        if($_SERVER["REQUEST_METHOD"]=="POST"){
+            $baslik = $_POST["baslik"];
+            $aciklama = $_POST["aciklama"];
+            $resimurl = $_POST["resimurl"];
+
+            filmEkle($baslik,$aciklama,$resimurl);
+            header('Location: index.php');
+        }
 ?>
     <?php include "views/_header.php";?>
     <?php include "views/_navbar.php";?>    
@@ -16,7 +25,7 @@
             
             <div class="card">
                 <div class="card-body">
-                    <form action="index.php" method="POST">
+                    <form action="create.php" method="POST">
                         <div class="mb-3">
                             <label for="baslik" class="form-label">Başlık</label>
                             <input type="text" class="form-control" name="baslik" id="baslik">

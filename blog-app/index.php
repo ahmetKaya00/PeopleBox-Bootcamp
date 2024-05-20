@@ -3,13 +3,7 @@
         require "libs/function.php";
 
 
-        if($_SERVER["REQUEST_METHOD"]=="POST"){
-            $baslik = $_POST["baslik"];
-            $aciklama = $_POST["aciklama"];
-            $resimurl = $_POST["resimurl"];
-
-            filmEkle($filmler,$baslik,$aciklama,$resimurl);
-        }
+        
 
 
 ?>

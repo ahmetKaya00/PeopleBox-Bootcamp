@@ -1,6 +1,12 @@
 <?php
     $kategoriler = array("Macera","Dram","Komedi","Korku","Bilim Kurgu");
 
+    const user = array(
+        "username" => "ahmetkaya",
+        "password" => "123456",
+        "name" => "Ahmet Kaya"
+    );
+
     $filmler = array(
         "1" => array(
             "baslik" => "Paper Lives",
@@ -42,4 +48,9 @@
         
 
         const limit = 85;
+
+
+        
+
+
 ?>

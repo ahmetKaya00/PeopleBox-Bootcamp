@@ -24,7 +24,7 @@
         $dosyaAdi_Arr = pathinfo($fileName);
         $dosyaAdi_uzantisiz = $dosyaAdi_Arr['filename'];
         $dosya_uzantisi = isset($dosyaAdi_Arr['extension']) ? $dosyaAdi_Arr['extension'] : '';
-
+ 
         if(!in_array($dosya_uzantisi,$dosya_uzantilari)){
             echo "dosya uzantisi kabul edilmiyor. <br>";
             echo "'jpg','jpeg','png' uzantili dosya tükleyiniz. <br>";

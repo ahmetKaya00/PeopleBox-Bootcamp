@@ -3,12 +3,12 @@
     require "libs/functions.php";  
 
     if ($_SERVER["REQUEST_METHOD"]=="POST") {
-        $baslik = $_POST["baslik"];
-        $aciklama = $_POST["aciklama"];
-        $resimurl = $_POST["resimurl"];
+        $title = $_POST["title"];
+        $description = $_POST["description"];
+        $image = $_POST["image"];
         $url = $_POST["url"];
 
-        filmEkle($baslik,$aciklama,$resimurl,$url);
+        createBlog($title,$description,$image,$url);
         header('Location: index.php');
     }
 ?>
@@ -28,21 +28,21 @@
            <div class="card">
            
                 <div class="card-body">
-                    <form action="create.php" method="POST">
+                    <form action="blog-create.php" method="POST">
 
                         <div class="mb-3">
-                            <label for="baslik" class="form-label">Başlık</label>
-                            <input type="text" class="form-control" name="baslik" id="baslik">
+                            <label for="title" class="form-label">Başlık</label>
+                            <input type="text" class="form-control" name="title" id="title">
                         </div>
 
                         <div class="mb-3">
-                            <label for="aciklama" class="form-label">Açıklama</label>
-                            <textarea name="aciklama" id="aciklama" class="form-control"></textarea>
+                            <label for="description" class="form-label">Açıklama</label>
+                            <textarea name="description" id="description" class="form-control"></textarea>
                         </div>
 
                         <div class="mb-3">
-                            <label for="resimurl" class="form-label">Resim</label>
-                            <input type="text" class="form-control" name="resimurl" id="resimurl">
+                            <label for="image" class="form-label">Resim</label>
+                            <input type="text" class="form-control" name="image" id="image">
                         </div>
 
                         <div class="mb-3">

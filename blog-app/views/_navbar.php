@@ -18,10 +18,10 @@
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a href="create.php" class="nav-link">Create</a>
+                    <a href="blog-create.php" class="nav-link">Blog Create</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Link 2</a>
+                    <a href="admin-blogs.php" class="nav-link">Blog List</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">Link 3</a>

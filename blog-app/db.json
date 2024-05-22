@@ -27,59 +27,18 @@
             "password": "123465",
             "name": "Ahmet Kaya",
             "email": "academyakm0@gmail.com"
-        },
-        {
-            "id": 5,
-            "username": "",
-            "password": "",
-            "name": "",
-            "email": ""
-        },
-        {
-            "id": 6,
-            "username": "",
-            "password": "",
-            "name": "",
-            "email": ""
-        },
-        {
-            "id": 7,
-            "username": "ahmetkaya",
-            "password": "123456",
-            "name": "Ahmet Kaya",
-            "email": "academyakm0@gmail.com"
-        },
-        {
-            "id": 8,
-            "username": "",
-            "password": "",
-            "name": "",
-            "email": ""
-        },
-        {
-            "id": 9,
-            "username": "",
-            "password": "",
-            "name": "",
-            "email": ""
-        },
-        {
-            "id": 10,
-            "username": "",
-            "password": "",
-            "name": "",
-            "email": ""
         }
     ],
     "movies": [
         {
             "id": 1,
-            "title": "Film 1",
+            "title": "Film 13",
             "description": "Film 1 a\u00e7\u0131klamas\u0131.",
-            "url": "film-1",
+            "url": "film-13",
             "image": "1.jpeg",
             "comments": 5,
-            "likes": 10
+            "likes": 10,
+            "is-active": true
         },
         {
             "id": 2,
@@ -88,7 +47,8 @@
             "url": "film-2",
             "image": "2.jpeg",
             "comments": 5,
-            "likes": 0
+            "likes": 0,
+            "is-active": true
         },
         {
             "id": 3,
@@ -97,7 +57,8 @@
             "url": "film-3",
             "image": "3.jpeg",
             "comments": 0,
-            "likes": 10
+            "likes": 10,
+            "is-active": true
         }
     ],
     "categories": [

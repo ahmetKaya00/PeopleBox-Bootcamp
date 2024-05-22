@@ -9,19 +9,19 @@
         $username = $_POST["username"];
         $password = $_POST["password"];
 
-        if(empty($name) or empty($email) or empty($username) or empty($password)){
-            echo "<div class='alert alert-danger mb-0 text-center'>Zorunlu alanları doldurunuz.</div>";
-        }
-//BAKILACAK!!!
-        $user = getUser($username);
-
-        if(!is_null($user)){
-            echo "<div class='alert alert-danger mb-0 text-center'>Username daha önce alınmış.</div>";
-        }
-
-        createUser($name,$username,$email,$password);
+        if (empty($name) or empty($email) or empty($username) or empty($password)) { 
+            echo "<div class='alert alert-danger mb-0 text-center'>Zorunlu alanları doldurunuz.</div>"; 
+    
+        }else{ 
+           $user = getUser($username); 
+           if (!is_null($user)) { 
+                echo "<div class='alert alert-danger mb-0 text-center'>Username daha önce alınmış.</div>"; 
+            } else { 
+                createUser($name, $username, $email, $password); 
         
-        header('Location: login.php');
+                header('Location: login.php'); 
+            } 
+        }
     }
 
 ?>

@@ -43,7 +43,7 @@
                         <a href="login.php" class="nav-link">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Register</a>
+                        <a href="register.php" class="nav-link">Register</a>
                     </li>
                 <?php endif; ?>       
 

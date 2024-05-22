@@ -1,0 +1,12 @@
+{
+    "firstName" : "Ahmet",
+    "lastName" : "Kaya",
+    "hobbies" : ["basketbol","Konsol"],
+    "age" : 37,
+    "children": [
+        {
+            "firstName" : "Ahmet",
+            "age" : 4
+        }
+    ]
+}

@@ -8,8 +8,11 @@
         $image = $_POST["image"];
         $url = $_POST["url"];
 
-        createBlog($title,$description,$image,$url);
-        header('Location: index.php');
+        if( createBlog($title,$description,$image,$url)){
+            header('Location: index.php');
+        }else{
+            echo "Yükleme sırasında hata oluştu";
+        }
     }
 ?>
 

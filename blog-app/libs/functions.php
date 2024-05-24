@@ -39,23 +39,14 @@ function getUser(string $username){
 
 
 
-function createBlog(string $title, string $description, string $image,string $url, int $comments=0,int $likes=0) {
-    $db = getData();
+function createBlog(string $title, string $description, string $image,string $url) {
+   include "ayar.php";
 
-    array_push($db["movies"], array(
-        "id" => count($db["movies"]) + 1,
-        "title" => $title,
-        "description" => $description,
-        "image" => $image,
-        "url" => $url,
-        "comments" => $comments,
-        "likes" => $likes,
-        "is-active" => false
-    ));
+    $query = "INSERT INTO blogs(title,description,image,url,isActive) VALUES ('$title','$description','$image','$url',1)";
+    $result = mysqli_query($connection,$query);
+   mysqli_close($connection);
 
-    $myfile = fopen("db.json","w");
-    fwrite($myfile, json_encode($db, JSON_PRETTY_PRINT));
-    fclose($myfile);
+   return $result;
 }
 
 function editBlog(int $id,string $title,string $description,string $image,string $url, bool $isActive){

@@ -4,9 +4,12 @@
 
     $id = $_GET["id"];
 
-    deleteBlog($id);
+   if(deleteBlog($id)){
+       header('Location: admin-blogs.php');
+   }else{
+    echo "Silme aşamasında bir hata oldu";
+   }
 
-    header('Location: admin-blogs.php');
 
 
 ?>

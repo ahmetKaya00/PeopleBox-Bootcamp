@@ -39,60 +39,61 @@ function getUser(string $username){
 
 
 
-function createBlog(string $title, string $description, string $image,string $url) {
+function createBlog(string $title, string $description, string $image,string $url, int $isActive=0) {
    include "ayar.php";
 
-    $query = "INSERT INTO blogs(title,description,image,url,isActive) VALUES ('$title','$description','$image','$url',1)";
-    $result = mysqli_query($connection,$query);
-   mysqli_close($connection);
+    $query = "INSERT INTO blogs(title,description,image,url,isActive) VALUES (?,?,?,?,?)";
+    $result = mysqli_prepare($connection,$query);
+
+    mysqli_stmt_bind_param($result, 'ssssi',$title,$description,$image,$url,$isActive);
+    mysqli_stmt_execute($result);
+    mysqli_stmt_close($result);
+    mysqli_close($connection);
 
    return $result;
 }
 
-function editBlog(int $id,string $title,string $description,string $image,string $url, bool $isActive){
-    $db = getData();
+function getBlogs(){
+    include "ayar.php";
 
-    foreach($db["movies"] as &$movie){
-        if($movie["id"] == $id){
-            $movie["title"] = $title;
-            $movie["description"] = $description;
-            $movie["image"] = $image;
-            $movie["url"] = $url;
-            $movie["is-active"] = $isActive;
+    $query = "SELECT * FROM blogs";
+    $result = mysqli_query($connection,$query);
+    mysqli_close($connection);
+    return $result;
+}
 
-            $myfile = fopen("db.json","w");
-            fwrite($myfile, json_encode($db, JSON_PRETTY_PRINT));
-            fclose($myfile);
+function editBlog(int $id,string $title,string $description,string $image,string $url, int $isActive){
+   include "ayar.php";
 
-            break;
-        }
-    }
+   $query = "UPDATE blogs SET title='$title',description='$description',image='$image',url='$url',isActive='$isActive' WHERE id='$id'";
+   $result = mysqli_query($connection,$query);
+   echo mysqli_error($connection);
+   return $result;
 }
 
 function deleteBlog(int $id){
-    $db = getData();
+   include "ayar.php";
 
-    foreach($db["movies"] as $key => $movie){
-        if($movie['id'] === $id){
-            array_splice($db["movies"],$key,1);
-            break;
-        }
-    }
-    $myfile = fopen("db.json","w");
-    fwrite($myfile, json_encode($db, JSON_PRETTY_PRINT));
-    fclose($myfile);
+   $query = "DELETE from blogs WHERE id=$id";
+   $result = mysqli_query($connection,$query);
+   return $result;
 }
 
 function getBlogByID(int $id){
-    $movies = getData()["movies"];
+    include "ayar.php";
 
-    foreach($movies as $movie){
-        if($movie["id"] == $id){
-            return $movie;
-        }
-    }
+    $query = "SELECT * from blogs WHERE id='$id'";
+    $result = mysqli_query($connection,$query);
+    mysqli_close($connection);
+    return $result;
 
-    return null;
+}
+
+function control_input($data){
+    $data = htmlspecialchars($data);
+    $data = stripslashes($data);
+
+    return $data;
 }
 
 function kisaAciklama($aciklama, $limit) {

@@ -3,17 +3,21 @@
     require "libs/functions.php";  
 
     $id = $_GET["id"];
-    $selectedMovie = getBlogByID($id);
+    $result = getBlogByID($id);
+    $selectedMovie = mysqli_fetch_assoc($result);
 
     if ($_SERVER["REQUEST_METHOD"]=="POST") {
         $title = $_POST["title"];
         $description = $_POST["description"];
         $image = $_POST["image"];
         $url = $_POST["url"];
-        $isActive =isset($_POST["isActive"]) ? true : false;
+        $isActive =isset($_POST["isActive"]) ? 1 : 0;
 
-        editBlog($id,$title,$description,$image,$url,$isActive);
-        header('Location: index.php');
+       if(editBlog($id,$title,$description,$image,$url,$isActive)){
+           header('Location: index.php');
+        }else{
+            echo "Güncelleme sırasında hata oluştu";
+        }
     }
 ?>
 
@@ -55,7 +59,7 @@
                         </div>
                         <div class="form-check mb-3">
                             <label for="isActive" class="form-check-label">Is Active</label>
-                            <input type="checkbox" class="form-check-input" name="isActive" id="isActive" <?php if($selectedMovie["is-active"]){echo "checked";} ?>>
+                            <input type="checkbox" class="form-check-input" name="isActive" id="isActive" <?php if($selectedMovie["isActive"]){echo "checked";} ?>>
                         </div>
 
                         <input type="submit" value="Submit" class="btn btn-primary">

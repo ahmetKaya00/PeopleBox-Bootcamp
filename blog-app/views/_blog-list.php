@@ -1,5 +1,18 @@
-<?php  $result = getBlogs(); while($film = mysqli_fetch_assoc($result)): ?> 
+<?php  
 
+if(isset($_GET["categoryid"])&&is_numeric($_GET["categoryid"])){
+    $result = getBlogsCategoryID($_GET["categoryid"]);
+    
+}else if(isset($_GET["q"])){
+    $result = getBlogsByKeyword($_GET["q"]);
+}
+else{
+    $result = getBlogs();
+}
+?> 
+
+    <?php if(mysqli_num_rows($result) > 0): ?>
+        <?php while($film = mysqli_fetch_assoc($result)):?> 
     <?php if($film["isActive"]):?>
 
 <div class="card mb-3">
@@ -19,3 +32,9 @@
 </div>
 <?php endif;?>
 <?php endwhile; ?>
+
+<?php else:?>
+    <div class="alert alert-warning">
+        Kategoriye ait film bulunmamaktadır.
+    </div>
+<?php endif;?>

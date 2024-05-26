@@ -75,23 +75,31 @@ function editBlog(int $id,string $title,string $description,string $image,string
  function clearBlogCategories(int $blogid){
     include "ayar.php";
  
-    $query = "DELETE FROM blogs where id=$blogid";
-    $result = mysqli_query($connection,$query);
+    $query = "DELETE FROM blog_category WHERE blog_id=$blogid";
+    $result = mysqli_query($connection, $query);
     echo mysqli_error($connection);
     return $result;
- }
+}
 
- function addBlogToCategories(int $blogid, array $categories){
+function addBlogToCategories(int $blogid, array $categories){
     include "ayar.php";
  
-    $query = "";
     foreach($categories as $catid){
-        $query .= "INSERT INTO blog_category(blog_id,category_id) VALUES ($blogid,$catid); ";
+        $query = "INSERT INTO blog_category(blog_id, category_id) VALUES (?, ?)";
+        $stmt = mysqli_prepare($connection, $query);
+        mysqli_stmt_bind_param($stmt, 'ii', $blogid, $catid);
+        $result = mysqli_stmt_execute($stmt);
+        
+        if (!$result) {
+            echo "Error: " . mysqli_error($connection) . "\n";
+            return false;
+        }
+        
+        mysqli_stmt_close($stmt);
     }
-    $result = mysqli_multi_query($connection,$query);
-    echo mysqli_error($connection);
-    return $result;
- }
+    return true;
+}
+
 
 
  function deleteBlog(int $id){
@@ -116,6 +124,23 @@ function editBlog(int $id,string $title,string $description,string $image,string
     include "ayar.php";
  
      $query = "SELECT c.id, c.name from blog_category bc inner join categories c on bc.category_id = c.id where bc.blog_id=$id";
+     $result = mysqli_query($connection,$query);
+     mysqli_close($connection);
+     return $result;
+ }
+ function getBlogsCategoryID(int $id){
+    include "ayar.php";
+ 
+     $query = "SELECT * from blog_category bc inner join blogs b on bc.blog_id = b.id where bc.category_id=$id";
+     $result = mysqli_query($connection,$query);
+     mysqli_close($connection);
+     return $result;
+ }
+
+ function getBlogsByKeyword($q){
+    include "ayar.php";
+ 
+     $query = "SELECT * from blogs where title LIKE '%$q%' or description LIKE '%$q%'";
      $result = mysqli_query($connection,$query);
      mysqli_close($connection);
      return $result;

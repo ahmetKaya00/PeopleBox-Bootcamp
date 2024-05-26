@@ -1,34 +1,35 @@
 <?php
-    require "libs/vars.php";
-    require "libs/functions.php";  
+require "libs/vars.php";
+require "libs/functions.php";  
 
-    $id = $_GET["id"];
-    $result = getBlogByID($id);
-    $selectedMovie = mysqli_fetch_assoc($result);
+$id = $_GET["id"];
+$result = getBlogByID($id);
+$selectedMovie = mysqli_fetch_assoc($result);
 
-    $categories = getCategories();
-    $selectedCategories = getCategoryBlogByID($id);
+$categories = getCategories();
+$selectedCategories = getCategoryBlogByID($id);
 
-    if ($_SERVER["REQUEST_METHOD"]=="POST") {
-        $title = $_POST["title"];
-        $description = control_input($_POST["description"]);
-        $image = $_POST["image"];
-        $url = $_POST["url"];
-        $categories = $_POST["categories"];
-        $isActive =isset($_POST["isActive"]) ? 1 : 0;
+if ($_SERVER["REQUEST_METHOD"]=="POST") {
+    $title = $_POST["title"];
+    $description = control_input($_POST["description"]);
+    $image = $_POST["image"];
+    $url = $_POST["url"];
+    $categories = $_POST["categories"];
+    $isActive = isset($_POST["isActive"]) ? 1 : 0;
 
-
-       if(editBlog($id,$title,$description,$image,$url,$isActive)){
-            clearBlogCategories($id);
-            if(count($categories) > 0){
-                addBlogToCategories($id,$categories);
-            }
-           header('Location: index.php');
-        }else{
-            echo "Güncelleme sırasında hata oluştu";
+    if(editBlog($id, $title, $description, $image, $url, $isActive)){
+        clearBlogCategories($id);
+        if(count($categories) > 0){
+            addBlogToCategories($id, $categories);
         }
+        header('Location: index.php');
+    }else{
+        echo "Güncelleme sırasında hata oluştu";
     }
+}
 ?>
+<!-- Include the rest of the HTML form and layout as before -->
+
 
 <?php include "views/_header.php" ?>
 <?php include "views/_navbar.php" ?>

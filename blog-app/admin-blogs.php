@@ -13,12 +13,21 @@
     <div class="row">
 
         <div class="col-12">
+
+        <div class="card mb-1">
+            <div class="card-body">
+                <a href="blog-create.php" class="btn btn-primary">New Blog</a>
+            </div>
+        </div>
+
+
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th style="width: 85px;">Image</th>
                         <th>Title</th>
                         <th>Url</th>
+                        <th>Category</th>
                         <th style="width: 85px;">Is Active</th>
                         <th style="width: 140px;">Settings</th>
                     </tr>
@@ -31,6 +40,27 @@
                             </td>
                             <td><?php echo $movie["title"] ?></td>
                             <td><?php echo $movie["url"] ?></td>
+                            <td>
+
+
+                                <?php 
+                                echo "<ul>";
+
+                                    $sonuc = getCategoryBlogByID($movie["id"]);
+
+                                    if(mysqli_num_rows($sonuc)>0){
+                                        while($category = mysqli_fetch_assoc($sonuc)){
+                                            echo "<li>".$category["name"]."</li>";
+                                        }
+                                    }else{
+                                        echo "<li>kategori seçilmedi.</li>";
+                                    }
+
+                                    echo "</ul>";
+                                ?>
+
+
+                            </td>
                             <td>
                                 <?php if($movie["isActive"]):?>
                                     <i class="fas fa-check"></i>

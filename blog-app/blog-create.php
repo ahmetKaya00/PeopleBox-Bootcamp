@@ -2,8 +2,10 @@
     require "libs/vars.php";
     require "libs/functions.php";  
 
-    $title = $description = "";
-    $title_err = $description_err = "";
+    $title = $description = $category = "";
+    $title_err = $description_err = $category_err = "";
+
+    $categories = getCategories();
 
     if ($_SERVER["REQUEST_METHOD"]=="POST") {
 
@@ -22,19 +24,27 @@
         $input_description = trim($_POST["description"]);
 
         if(empty($input_description)){
-            $description_err = "title boş geçilemez.";
+            $description_err = "description boş geçilemez.";
         }else if(strlen($input_description) < 10){
             $description_err = "description için çok az karakter kullandınız. Min: 11kr";
         }else{
-            $description = $input_description;
+            $description = control_input($input_description);
+        }
+
+        $select_category = $_POST["category"];
+
+        if($select_category == "0"){
+            $category_err = "Kategori seçmelisiniz.";
+        }else{
+            $category = $_POST["category"];
         }
 
 
         $image = $_POST["image"];
         $url = $_POST["url"];
 
-        if(empty($title_err) && empty($description_err)){
-            if( createBlog($title,$description,$image,$url)){
+        if(empty($title_err) && empty($description_err) && empty($category_err)){
+            if( createBlog($title,$description,$image,$url,$category)){
                 header('Location: index.php');
             }else{
                 echo "Yükleme sırasında hata oluştu";
@@ -82,6 +92,20 @@
                             <label for="url" class="form-label">url</label>
                             <input type="text" class="form-control" name="url" id="url">
                         </div>
+                        <div class="mb-3">
+                            <label for="url" class="form-label">Category</label>
+                            <select name="category" id="category" class="form-select <?php echo (!empty($category_err)) ? 'is-invalid':''?>">
+                                <option selected value="0">Seçiniz</option>
+                                <?php foreach($categories as $c){
+                                    echo "<option value='{$c["id"]}'>{$c["name"]}</option>";
+                            }
+                                    ?>
+                            </select>
+                            <span class="invalid-feedback"><?php echo $category_err ?></span>
+                            <script type="text/javascript">
+                                document.getElementById("category").value = "<?php echo $category?>"
+                            </script>
+                        </div>
 
                         <input type="submit" value="Submit" class="btn btn-primary">
 
@@ -96,5 +120,6 @@
 
 </div>
 
+<?php include "views/_ckeditor.php" ?>
 <?php include "views/_footer.php" ?>
 

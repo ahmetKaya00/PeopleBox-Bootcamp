@@ -9,7 +9,7 @@
         </div>
         <div class="col-9">
             <div class="card-body">                        
-                <h5 class="card-title"><a href="<?php echo $film["url"]?>"><?php echo $film["title"]?></a></h5>
+                <h5 class="card-title"><a href="blog-details.php?id=<?php echo $film["id"]?>"><?php echo $film["title"]?></a></h5>
                 <p class="card-text"><?php echo kisaAciklama($film['description'],200);?></p>
                 
             </div>

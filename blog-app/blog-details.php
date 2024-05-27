@@ -32,6 +32,8 @@
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $blog["title"] ?></h5>
+                        <p class="card-text"><?php echo htmlspecialchars_decode($blog["short_description"]) ?></p>
+                        <hr>
                         <p class="card-text"><?php echo htmlspecialchars_decode($blog["description"]) ?></p>
                     </div>
                 </div>

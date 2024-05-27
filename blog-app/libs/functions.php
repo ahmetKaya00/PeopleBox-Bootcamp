@@ -39,13 +39,13 @@ function getUser(string $username){
 
 
 
-function createBlog(string $title, string $description, string $image,string $url,int $category, int $isActive=0) {
+function createBlog(string $title,string $sdescription, string $description, string $image,string $url, int $isActive=0) {
    include "ayar.php";
 
-    $query = "INSERT INTO blogs(title,description,image,url,category_id,isActive) VALUES (?,?,?,?,?,?)";
+    $query = "INSERT INTO blogs(title,short_description,description,image,url,isActive) VALUES (?,?,?,?,?,?)";
     $result = mysqli_prepare($connection,$query);
 
-    mysqli_stmt_bind_param($result, 'ssssii',$title,$description,$image,$url,$category,$isActive);
+    mysqli_stmt_bind_param($result, 'sssssi',$title,$sdescription,$description,$image,$url,$isActive);
     mysqli_stmt_execute($result);
     mysqli_stmt_close($result);
     mysqli_close($connection);
@@ -63,10 +63,51 @@ function getBlogs(){
     return $result;
 }
 
-function editBlog(int $id,string $title,string $description,string $image,string $url, int $isActive){
+function getBlogsFilters($categoryId,$keyword,$page){
+    include "ayar.php";
+    $pageCount = 2;
+    $offset = ($page-1) * $pageCount;
+    $query = "";
+
+    if(!empty($categoryId)){
+        $query = "SELECT * from blog_category bc inner join blogs b on bc.blog_id = b.id WHERE bc.category_id =$categoryId";
+    }else{
+        $query = "from blogs b WHERE b.isActive=1";
+    }
+
+    if(!empty($keyword)){
+        $query .= "&& b.title LIKE '%$keyword%' or b.description LIKE '%$keyword%';";
+    }
+
+
+    $total_sql = "SELECT COUNT(*) ".$query;
+
+    $count_data = mysqli_query($connection,$total_sql);
+    $count = mysqli_fetch_array($count_data)[0];
+    $total_pages = ceil($count / $pageCount);
+
+    $sql = "SELECT * ".$query." LIMIT $offset, $pageCount";
+    $result = mysqli_query($connection,$sql);
+    mysqli_close($connection);
+    return array(
+        "total_pages" => $total_pages,
+        "data" => $result
+    );
+}
+
+function getHomePageBlogs(){
+    include "ayar.php";
+
+    $query = "SELECT * FROM blogs where isActive=1 and isHome=1 ORDER BY dateAdded DESC LIMIT 3";
+    $result = mysqli_query($connection,$query);
+    mysqli_close($connection);
+    return $result;
+}
+
+function editBlog(int $id,string $title,string $sdescription,string $description,string $image,string $url, int $isActive,int $isHome){
     include "ayar.php";
  
-    $query = "UPDATE blogs SET title='$title',description='$description',image='$image',url='$url',isActive='$isActive' WHERE id='$id'";
+    $query = "UPDATE blogs SET title='$title',short_description = '$sdescription',description='$description',image='$image',url='$url',isActive='$isActive', isHome = '$isHome' WHERE id='$id'";
     $result = mysqli_query($connection,$query);
     echo mysqli_error($connection);
     return $result;

@@ -11,13 +11,15 @@ $selectedCategories = getCategoryBlogByID($id);
 
 if ($_SERVER["REQUEST_METHOD"]=="POST") {
     $title = $_POST["title"];
+    $sdescription = control_input($_POST["sdescription"]);
     $description = control_input($_POST["description"]);
     $image = $_POST["image"];
     $url = $_POST["url"];
     $categories = $_POST["categories"];
     $isActive = isset($_POST["isActive"]) ? 1 : 0;
+    $isHome = isset($_POST["isHome"]) ? 1 : 0;
 
-    if(editBlog($id, $title, $description, $image, $url, $isActive)){
+    if(editBlog($id, $title, $sdescription,$description, $image, $url, $isActive,$isHome)){
         clearBlogCategories($id);
         if(count($categories) > 0){
             addBlogToCategories($id, $categories);
@@ -53,6 +55,12 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
                                 <label for="title" class="form-label">Başlık</label>
                                 <input type="text" class="form-control" name="title" id="title" value="<?php echo $selectedMovie["title"] ?>">
                             </div>
+
+                            <div class="mb-3">
+                            <label for="sdescription" class="form-label">Kısa Açıklama</label>
+                            <textarea name="sdescription" id="sdescription" class="form-control"></textarea>
+                            <span class="invalid-feedback"><?php echo $selectedMovie["short_description"] ?></span>
+                        </div>
                             
                             <div class="mb-3">
                             <label for="description" class="form-label">Açıklama</label>
@@ -67,29 +75,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
                         <div class="mb-3">
                             <label for="url" class="form-label">url</label>
                             <input type="text" class="form-control" name="url" id="url" value="<?php echo $selectedMovie["url"] ?>">
-                        </div>
-                        <div class="form-check mb-3">
-                            <label for="isActive" class="form-check-label">Is Active</label>
-                            <input type="checkbox" class="form-check-input" name="isActive" id="isActive" <?php if($selectedMovie["isActive"]){echo "checked";} ?>>
-                        </div>
-                        <div class="mb-3">
-                            <label for="url" class="form-label">Category</label>
-                            <select name="category" id="category" class="form-select <?php echo (!empty($category_err)) ? 'is-invalid':''?>">
-                                <?php foreach($categories as $c){
-                                    if($selectedMovie["category_id"] == $c["id"]){
-                                        echo "<option selected value='{$c["id"]}'>{$c["name"]}</option>";
-                                    }else{
-                                        echo "<option value='{$c["id"]}'>{$c["name"]}</option>";
-                                    }
-                                }
-                                    ?>
-                            </select>
-                            <span class="invalid-feedback"><?php echo $category_err ?></span>
-                            <script type="text/javascript">
-                                document.getElementById("category").value = "<?php echo $category?>"
-                                </script>
-                        </div>
-                        
+                        </div>                                            
                         <input type="submit" value="Submit" class="btn btn-primary">
 
                         
@@ -123,6 +109,15 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
 
 
                         <?php endforeach;?>
+                        <hr>
+                        <div class="form-check mb-3">
+                            <label for="isActive" class="form-check-label">Is Active</label>
+                            <input type="checkbox" class="form-check-input" name="isActive" id="isActive" <?php if($selectedMovie["isActive"]){echo "checked";} ?>>
+                        </div>
+                        <div class="form-check mb-3">
+                            <label for="isHome" class="form-check-label">Is Home</label>
+                            <input type="checkbox" class="form-check-input" name="isHome" id="isHome" <?php if($selectedMovie["isHome"]){echo "checked";} ?>>
+                        </div>
                 </div>
             </div>    
         </form>  

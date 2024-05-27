@@ -4,61 +4,48 @@
             "id": 1,
             "name": "Ahmet Kaya",
             "username": "ahmetkaya",
-            "password": "123456",
+            "password": "1234",
             "email": "info@ahmetkaya.com"
         },
         {
             "id": 2,
-            "name": "Salih Kulo\u011flu",
-            "username": "salihkuloglu",
-            "password": "123456",
-            "email": "info@salihkuloglu.com"
-        },
-        {
-            "id": 3,
-            "username": "ahmetkaya",
-            "password": "123456",
-            "name": "Ahmet Kaya",
-            "email": "academyakm0@gmail.com"
-        },
-        {
-            "id": 4,
-            "username": "yonetici",
-            "password": "123465",
-            "name": "Ahmet Kaya",
-            "email": "academyakm0@gmail.com"
+            "name": "Ayşe Kaya",
+            "username": "aysekaya",
+            "password": "1234",
+            "email": "info@aysekaya.com"
         }
+
     ],
     "movies": [
         {
             "id": 1,
-            "title": "Film 13",
-            "description": "Film 1 a\u00e7\u0131klamas\u0131.",
-            "url": "film-13",
-            "image": "1.jpeg",
-            "comments": 5,
+            "title": "film 1",
+            "description": "film 1 a\u00e7\u0131klama",
+            "url": "film-11",
+            "image-url": "1.jpeg",
             "likes": 10,
-            "is-active": true
+            "comments": 5,
+            "is-active": false
         },
         {
             "id": 2,
-            "title": "Film 2",
-            "description": "Film 2 a\u00e7\u0131klamas\u0131.",
-            "url": "film-2",
-            "image": "2.jpeg",
-            "comments": 5,
-            "likes": 0,
+            "title": "film 3",
+            "description": "film 3 a\u00e7\u0131klama",
+            "url": "film-3",
+            "image-url": "3.jpeg",
+            "likes": 5,
+            "comments": 0,
             "is-active": true
         },
         {
             "id": 3,
-            "title": "Film 3",
-            "description": "Film 3 a\u00e7\u0131klamas\u0131.",
-            "url": "film-3",
-            "image": "3.jpeg",
+            "title": "film 4",
+            "description": "ff",
+            "image-url": "ff",
+            "url": "f",
+            "likes": 0,
             "comments": 0,
-            "likes": 10,
-            "is-active": true
+            "is-active": false
         }
     ],
     "categories": [

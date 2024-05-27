@@ -3,29 +3,32 @@
     require "libs/functions.php";  
 
     $categoryname = "";
-    $category_err = "";
+    $categoryname_err = "";
 
     if ($_SERVER["REQUEST_METHOD"]=="POST") {
 
-
         $input_categoryname = trim($_POST["categoryname"]);
 
-        if(empty($input_categoryname)){
+        if(empty($input_categoryname)) {
             $categoryname_err = "categoryname boş geçilemez.";
-        }else if(strlen($input_categoryname) > 150){
-            $categoryname_err = "categoryname için çok fazla karakter kullandınız. Max: 150kr";
-        }else{
+        } else if (strlen($input_categoryname) > 100) {
+            $categoryname_err = "categoryname için çok fazla karakter girdiniz.";
+        }
+        else {
             $categoryname = control_input($input_categoryname);
         }
 
-
-        if(empty($categoryname_err)){
-            if( createCategory($categoryname)){
+        if(empty($categoryname_err)) {
+            if (createCategory($categoryname)) {
+                $_SESSION['message'] = $categoryname." isimli kategori eklendi";
+                $_SESSION['type'] = "success";
+                
                 header('Location: admin-categories.php');
-            }else{
-                echo "Yükleme sırasında hata oluştu";
+            } else {
+                echo "hata";
             }
-        }  
+        }      
+     
     }
 ?>
 
@@ -35,11 +38,8 @@
 <div class="container my-3">
 
     <div class="row">
-
-        <div class="col-3">
-            <?php include "views/_menu.php" ?>     
-        </div>
-        <div class="col-9">
+        
+        <div class="col-12">
 
            <div class="card">
            
@@ -47,11 +47,11 @@
                     <form action="category-create.php" method="POST">
 
                         <div class="mb-3">
-                            <label for="categoryname" class="form-label">Kategori Adı</label>
-                            <input type="text" class="form-control <?php echo (!empty($categoryname_err)) ? 'is-invalid':''?>" name="categoryname" id="categoryname" value="<?php echo $categoryname?>">
-                            <span class="invalid-feedback"><?php echo $categoryname_err ?></span>
-                            <span class="invalid-feedback"><?php echo $categoryname_err ?></span>
-                        </div>                    
+                            <label for="categoryname" class="form-label">title</label>
+                            <input type="text" name="categoryname" id="categoryname" class="form-control <?php echo (!empty($categoryname_err)) ? 'is-invalid':'' ?>" value="<?php echo $categoryname;?>">
+                            <span class="invalid-feedback"><?php echo $categoryname_err?></span>
+                        </div>
+
                         <input type="submit" value="Submit" class="btn btn-primary">
 
                     

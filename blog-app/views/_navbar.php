@@ -8,15 +8,17 @@
                     <a href="blogs.php" class="nav-link">Blogs</a>
                 </li>
                 <li class="nav-item">
-                    <a href="admin-blogs.php" class="nav-link">Admin Create</a>
+                    <a href="admin-blogs.php" class="nav-link">Admin Blogs</a>
                 </li>
                 <li class="nav-item">
                     <a href="admin-categories.php" class="nav-link">Admin Categories</a>
                 </li>
+              
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0">
 
                 <?php if (isset($_COOKIE["auth"])): ?>
+
                     <li class="nav-item">
                         <a href="logout.php" class="nav-link">Logout</a>
                     </li>
@@ -25,12 +27,14 @@
                     </li>
                 
                 <?php else: ?>
+                
                     <li class="nav-item">
                         <a href="login.php" class="nav-link">Login</a>
                     </li>
                     <li class="nav-item">
                         <a href="register.php" class="nav-link">Register</a>
                     </li>
+
                 <?php endif; ?>       
 
 

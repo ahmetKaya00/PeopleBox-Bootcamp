@@ -7,23 +7,24 @@
                 <li class="nav-item">
                     <a href="blogs.php" class="nav-link">Blogs</a>
                 </li>
+                <?php if (isAdmin()): ?>
                 <li class="nav-item">
                     <a href="admin-blogs.php" class="nav-link">Admin Blogs</a>
                 </li>
                 <li class="nav-item">
                     <a href="admin-categories.php" class="nav-link">Admin Categories</a>
                 </li>
-              
+                <?php endif; ?>   
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0">
 
-                <?php if (isset($_COOKIE["auth"])): ?>
+                <?php if (isLoggedin()): ?>
 
                     <li class="nav-item">
                         <a href="logout.php" class="nav-link">Logout</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Hoş geldiniz, <?php echo $_COOKIE["auth"]["name"]?></a>
+                        <a href="#" class="nav-link">Hoş geldiniz, <?php echo $_SESSION["username"]?></a>
                     </li>
                 
                 <?php else: ?>

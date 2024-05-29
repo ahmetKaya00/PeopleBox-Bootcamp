@@ -2,6 +2,10 @@
 
     require "libs/vars.php";
     require "libs/functions.php";  
+    if(!isAdmin()){
+        header("location: index.php");
+        exit;
+    }
 
 ?>
 

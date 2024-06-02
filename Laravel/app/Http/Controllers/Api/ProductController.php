@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Str;
 class ProductController extends Controller
 {
     /**
@@ -22,7 +22,20 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $input = $request->all();
+
+        // $product = Product::create($input);
+        $product = new Product;
+        $product->name = $request->name;
+        $product->slug = Str::slug($request->name);
+        $product->price = $request->price;
+        $product->save();
+
+
+        return response([
+            'data' => $product,
+            'message' => 'Product Create'
+        ],201);
     }
 
     /**
@@ -42,7 +55,15 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+
+         $input = $request->all();
+
+         $product->update($input);
+
+        return response([
+            'data' => $product,
+            'message' => 'Product Create'
+        ],200);
     }
 
     /**
@@ -50,6 +71,10 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return response([
+            'message' => 'Product Deleted'
+        ],200);
     }
 }
